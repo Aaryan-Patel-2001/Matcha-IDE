@@ -3,7 +3,6 @@ package org.intellij.privacyHelper.panelUI.safetySectionTasks.TaskGuide;
 import com.intellij.find.*;
 import com.intellij.find.impl.FindInProjectUtil;
 import com.intellij.ide.projectView.PresentationData;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.application.ReadAction;
@@ -92,7 +91,7 @@ public class GuideRootNode extends BaseNode {
     private Set<VirtualFile> getFilesForFastWordSearch(Condition<VirtualFile> fileMask,
                                                        List<FindInProjectSearchEngine.@NotNull FindInProjectSearcher>
                                                                searchers) {
-        final Set<VirtualFile> resultFiles = new CompactVirtualFileSet();
+        final Set<VirtualFile> resultFiles = VfsUtilCore.createCompactVirtualFileSet();
 
         for (FindInProjectSearchEngine.FindInProjectSearcher searcher : searchers) {
             Collection<VirtualFile> virtualFiles = searcher.searchForOccurrences();
@@ -129,7 +128,7 @@ public class GuideRootNode extends BaseNode {
         final GlobalSearchScope globalCustomScope = customScope == null ? null :
                 GlobalSearchScopeUtil.toGlobalSearchScope(customScope, myProject);
 
-        final Set<VirtualFile> result = new CompactVirtualFileSet();
+        final Set<VirtualFile> result = VfsUtilCore.createCompactVirtualFileSet();
 
         class EnumContentIterator implements ContentIterator {
 
@@ -295,8 +294,8 @@ public class GuideRootNode extends BaseNode {
         return Pair.createNonNull(psiFile, sourceVirtualFile);
     }
 
-    public GuideRootNode(Project project, Object o, AbstractTreeBuilder builder) {
-        super(project, o, builder);
+    public GuideRootNode(Project project, Object o) {
+        super(project, o);
     }
 
     public void setCondition(boolean isAnnotation, boolean isSource, boolean isRequired) {
@@ -311,10 +310,10 @@ public class GuideRootNode extends BaseNode {
         if (isAnnotation) {
             if (isRequired) {
                 childrenNodes.add(new AnnotationActionNode(myProject, 0,
-                        isSource ? DataPracticeGroup.DETECTED_SOURCE : DataPracticeGroup.DETECTED_SINK, myBuilder,
+                        isSource ? DataPracticeGroup.DETECTED_SOURCE : DataPracticeGroup.DETECTED_SINK,
                         true));
                 childrenNodes.add(new AnnotationActionNode(myProject, 1,
-                        isSource ? DataPracticeGroup.DETECTED_SOURCE : DataPracticeGroup.DETECTED_SINK, myBuilder,
+                        isSource ? DataPracticeGroup.DETECTED_SOURCE : DataPracticeGroup.DETECTED_SINK,
                         false));
             } else {
                 updateMyFileSet();
@@ -340,16 +339,16 @@ public class GuideRootNode extends BaseNode {
                         }
                     }
                     childrenNodes.add(new AnnotationActionNode(myProject, 2,
-                            DataPracticeGroup.MANUALLY_ADDED_SOURCE, myBuilder, true, unusedDataCategories,
+                            DataPracticeGroup.MANUALLY_ADDED_SOURCE, true, unusedDataCategories,
                             unusedDataGroups, dataGroupOccurrenceCount));
                     childrenNodes.add(new AnnotationActionNode(myProject, 3,
-                            DataPracticeGroup.MANUALLY_ADDED_SOURCE, myBuilder, false));
+                            DataPracticeGroup.MANUALLY_ADDED_SOURCE, false));
                 } else {
                     boolean hasMatch = searchKeywords(NetworkKeywordRegex);
                     childrenNodes.add(new AnnotationActionNode(myProject, 2,
-                            DataPracticeGroup.MANUALLY_ADDED_SINK, myBuilder, true, hasMatch));
+                            DataPracticeGroup.MANUALLY_ADDED_SINK, true, hasMatch));
                     childrenNodes.add(new AnnotationActionNode(myProject, 3,
-                            DataPracticeGroup.MANUALLY_ADDED_SINK, myBuilder, false));
+                            DataPracticeGroup.MANUALLY_ADDED_SINK, false));
                 }
             }
         } else {
@@ -376,9 +375,9 @@ public class GuideRootNode extends BaseNode {
                 }
             }
 
-            childrenNodes.add(new LibNode(myProject, unverifiedLibs, myBuilder, VerifyCustomLibText));
-            childrenNodes.add(new LibNode(myProject, verifiedLibs, myBuilder, VerifiedCustomLibText));
-            childrenNodes.add(new LibNode(myProject, defaultLibs, myBuilder, DefaultLibText));
+            childrenNodes.add(new LibNode(myProject, unverifiedLibs, VerifyCustomLibText));
+            childrenNodes.add(new LibNode(myProject, verifiedLibs, VerifiedCustomLibText));
+            childrenNodes.add(new LibNode(myProject, defaultLibs, DefaultLibText));
         }
         return childrenNodes;
     }

@@ -1,49 +1,57 @@
 package org.intellij.privacyHelper.panelUI.safetySectionPreview;
 
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.openapi.project.Project;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.ui.tree.AsyncTreeModel;
+import com.intellij.ui.tree.StructureTreeModel;
+import com.intellij.util.ui.tree.TreeUtil;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultTreeModel;
 import java.util.Comparator;
 
-public class SafetySectionPreviewTreeBuilder extends AbstractTreeBuilder {
+public class SafetySectionPreviewTreeBuilder {
     protected final Project myProject;
+    private final JTree myTree;
+    private final SafetySectionPreviewTreeStructure myTreeStructure;
+    private final StructureTreeModel<SafetySectionPreviewTreeStructure> myStructureTreeModel;
 
     public SafetySectionPreviewTreeBuilder(JTree tree, DefaultTreeModel treeModel, Project project) {
-        super(tree, treeModel, null, SafetySectionPreviewTreeBuilder.MyComparator.ourInstance, false);
-
         myProject = project;
+        myTree = tree;
+        myTreeStructure = new SafetySectionPreviewTreeStructure(project);
+        myStructureTreeModel = new StructureTreeModel<>(myTreeStructure, MyComparator.ourInstance, project);
     }
 
     public final void init() {
-        SafetySectionPreviewTreeStructure safetySectionPreviewTreeStructure = createTreeStructure();
-        setTreeStructure(safetySectionPreviewTreeStructure);
-        safetySectionPreviewTreeStructure.setTreeBuilder(this);
-
-        initRootNode();
+        myTree.setModel(new AsyncTreeModel(myStructureTreeModel, myProject));
     }
 
-    @NotNull
-    protected SafetySectionPreviewTreeStructure createTreeStructure() {
-        return new SafetySectionPreviewTreeStructure(myProject);
+    public void queueUpdate() {
+        myStructureTreeModel.invalidateAsync();
     }
 
     public void collapseAll() {
-        int row = getTree().getRowCount() - 1;
+        int row = myTree.getRowCount() - 1;
         while (row > 0) {
-            getTree().collapseRow(row);
+            myTree.collapseRow(row);
             row--;
         }
     }
 
-    private static final class MyComparator implements Comparator<NodeDescriptor> {
-        public static final Comparator<NodeDescriptor> ourInstance = new SafetySectionPreviewTreeBuilder.MyComparator();
+    public void expandAll(Runnable onDone) {
+        TreeUtil.expandAll(myTree, onDone == null ? () -> {} : onDone);
+    }
+
+    public Object getRootElement() {
+        return myTreeStructure.getRootElement();
+    }
+
+    private static final class MyComparator implements Comparator<NodeDescriptor<?>> {
+        public static final Comparator<NodeDescriptor<?>> ourInstance = new MyComparator();
 
         @Override
-        public int compare(NodeDescriptor descriptor1, NodeDescriptor descriptor2) {
+        public int compare(NodeDescriptor<?> descriptor1, NodeDescriptor<?> descriptor2) {
             int weight1 = descriptor1.getWeight();
             int weight2 = descriptor2.getWeight();
             if (weight1 != weight2) {

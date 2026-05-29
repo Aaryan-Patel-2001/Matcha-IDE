@@ -21,6 +21,7 @@ import com.intellij.ide.util.treeView.NodeRenderer;
 import com.intellij.ui.HighlightableCellRenderer;
 import com.intellij.ui.HighlightedRegion;
 import com.intellij.util.ui.UIUtil;
+import com.intellij.util.ui.tree.TreeUtil;
 import org.intellij.privacyHelper.panelUI.safetySectionPreview.ActionTypeNode;
 import org.intellij.privacyHelper.panelUI.safetySectionPreview.DataCategoryNode;
 import org.intellij.privacyHelper.panelUI.safetySectionPreview.DataTypeNode;
@@ -29,7 +30,6 @@ import org.intellij.privacyHelper.panelUI.safetySectionTasks.*;
 import org.intellij.privacyHelper.panelUI.safetySectionTasks.TaskGuide.*;
 
 import javax.swing.*;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
 import java.awt.*;
 
@@ -56,7 +56,7 @@ public class PrivacyCheckerCompositeRenderer implements TreeCellRenderer {
                                                 boolean hasFocus) {
     Component result;
 
-    Object userObject = ((DefaultMutableTreeNode)obj).getUserObject();
+    Object userObject = TreeUtil.getUserObject(obj);
     if (userObject instanceof LibraryNode || userObject instanceof PlainTextNode || userObject instanceof ActionTypeNode
             || userObject instanceof DataCategoryNode || userObject instanceof DataTypeNode
             || userObject instanceof PurposeNode || userObject instanceof AnnotationActionNode

@@ -5,7 +5,7 @@ import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 
 public class AdditionalAccessAnnotationHelpPanel extends HelpMessagePanel {
 
@@ -15,9 +15,10 @@ public class AdditionalAccessAnnotationHelpPanel extends HelpMessagePanel {
     public void loadHelpMessageHtml() {
         if (html == null) {
             try {
-                URL htmlUrl = HelpMessagePanel.class.getResource("/matchaUseGuide/Matcha-help-additional-source-annotation.html");
-                if (htmlUrl != null) {
-                    html = ResourceUtil.loadText(htmlUrl);
+                try (InputStream in = HelpMessagePanel.class.getResourceAsStream("/matchaUseGuide/Matcha-help-additional-source-annotation.html")) {
+                    if (in != null) {
+                        html = ResourceUtil.loadText(in);
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();

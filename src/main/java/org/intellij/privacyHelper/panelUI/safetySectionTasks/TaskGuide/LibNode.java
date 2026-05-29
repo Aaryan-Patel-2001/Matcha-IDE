@@ -1,7 +1,6 @@
 package org.intellij.privacyHelper.panelUI.safetySectionTasks.TaskGuide;
 
 import com.intellij.ide.projectView.PresentationData;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
 import org.intellij.privacyHelper.panelUI.BaseNode;
@@ -15,8 +14,8 @@ public class LibNode extends BaseNode {
     ArrayList<String> libs;
     String text;
 
-    protected LibNode(Project project, ArrayList<String> libs, AbstractTreeBuilder builder, String text) {
-        super(project, libs, builder);
+    protected LibNode(Project project, ArrayList<String> libs, String text) {
+        super(project, libs);
         this.libs = libs;
         this.text = text;
     }
@@ -25,7 +24,7 @@ public class LibNode extends BaseNode {
     public @NotNull Collection<? extends AbstractTreeNode> getChildren() {
         ArrayList<AbstractTreeNode> childrenNodes = new ArrayList<>();
         for (String libName : libs) {
-            childrenNodes.add(new LibraryNode(myProject, libName, myBuilder));
+            childrenNodes.add(new LibraryNode(myProject, libName));
         }
         return childrenNodes;
     }

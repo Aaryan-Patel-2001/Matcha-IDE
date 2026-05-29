@@ -2,7 +2,6 @@ package org.intellij.privacyHelper.panelUI;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.todo.HighlightedRegionProvider;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.SmartPsiElementPointer;
@@ -17,8 +16,8 @@ public class PsiElementNode extends BaseNode implements HighlightedRegionProvide
     private String mSummary;
 
     public PsiElementNode(Project project, SmartPsiElementPointer smartPsiElementPointer,
-                             AbstractTreeBuilder builder, String summary) {
-        super(project, smartPsiElementPointer, builder);
+                             String summary) {
+        super(project, smartPsiElementPointer);
         mSummary = summary;
         myHighlightedRegions = new ArrayList<>();
     }

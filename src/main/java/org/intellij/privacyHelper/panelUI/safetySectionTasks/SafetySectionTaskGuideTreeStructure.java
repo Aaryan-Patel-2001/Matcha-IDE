@@ -11,20 +11,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SafetySectionTaskGuideTreeStructure extends AbstractTreeStructureBase {
-    protected SafetySectionTaskGuideTreeBuilder myBuilder;
-    protected AbstractTreeNode myRootElement;
+    protected final AbstractTreeNode myRootElement;
 
     protected SafetySectionTaskGuideTreeStructure(Project project) {
         super(project);
-    }
-
-    final void setTreeBuilder(SafetySectionTaskGuideTreeBuilder builder) {
-        myBuilder = builder;
-        myRootElement = createRootElement();
-    }
-
-    public AbstractTreeNode createRootElement() {
-        return new GuideRootNode(myProject, new Object(), myBuilder);
+        myRootElement = new GuideRootNode(myProject, new Object());
     }
 
     @Override

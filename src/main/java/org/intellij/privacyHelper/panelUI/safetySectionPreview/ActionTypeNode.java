@@ -1,7 +1,6 @@
 package org.intellij.privacyHelper.panelUI.safetySectionPreview;
 
 import com.intellij.ide.projectView.PresentationData;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
 import org.intellij.privacyHelper.codeInspection.instances.AnnotationInstance;
@@ -23,8 +22,8 @@ public class ActionTypeNode extends BaseNode {
     HashMap<String, Set<String>> dataUsageMap;
     HashMap<String, ArrayList<Object>> dataUsagePointerMap;
 
-    protected ActionTypeNode(Project project, String[] actionType, AbstractTreeBuilder builder) {
-        super(project, actionType, builder);
+    protected ActionTypeNode(Project project, String[] actionType) {
+        super(project, actionType);
         this.actionType = actionType;
     }
 
@@ -154,7 +153,7 @@ public class ActionTypeNode extends BaseNode {
         ArrayList<AbstractTreeNode> children = new ArrayList<>();
         for (String dataCategory : dataCategories) {
             children.add(new DataCategoryNode(myProject, dataCategory, dataUsageMap.get(dataCategory),
-                    dataUsagePointerMap, myBuilder));
+                    dataUsagePointerMap));
         }
         return children;
     }

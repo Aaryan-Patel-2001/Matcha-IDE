@@ -2,7 +2,6 @@ package org.intellij.privacyHelper.panelUI.safetySectionTasks.TaskGuide;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.todo.HighlightedRegionProvider;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.project.Project;
@@ -26,10 +25,10 @@ public class SearchDataCategoryKeywordNode extends BaseNode implements Highlight
 
     private final ArrayList<HighlightedRegion> myHighlightedRegions;
 
-    protected SearchDataCategoryKeywordNode(Project project, String dataCategory, AbstractTreeBuilder builder,
+    protected SearchDataCategoryKeywordNode(Project project, String dataCategory,
                                             ArrayList<PersonalDataGroup> dataGroups,
                                             Map<PersonalDataGroup, Boolean> dataGroupOccurrenceCount) {
-        super(project, dataCategory, builder);
+        super(project, dataCategory);
         this.dataCategory = dataCategory;
         this.dataGroups = dataGroups;
         this.dataGroupOccurrenceCount = dataGroupOccurrenceCount;
@@ -41,7 +40,7 @@ public class SearchDataCategoryKeywordNode extends BaseNode implements Highlight
         ArrayList<AbstractTreeNode> children = new ArrayList<>();
         for (PersonalDataGroup dataGroup : dataGroups) {
             String dataType = CoconutUIUtil.prettifyDataTypeString(dataGroup.toString());
-            children.add(new SearchKeywordsNode(myProject, CoconutUIUtil.getKeywordRegex(dataGroup), myBuilder,
+            children.add(new SearchKeywordsNode(myProject, CoconutUIUtil.getKeywordRegex(dataGroup),
                     String.format("Search for %s%s", dataType,
                             dataGroupOccurrenceCount.getOrDefault(dataGroup, false) ? " (found keyword matches)" : ""),
                     Constants.DESCRIPTION_MAPPING.get(dataGroup.toString())));

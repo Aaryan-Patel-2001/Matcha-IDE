@@ -1,7 +1,6 @@
 package org.intellij.privacyHelper.panelUI.safetySectionTasks.TaskGuide;
 
 import com.intellij.ide.projectView.PresentationData;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
 import org.intellij.privacyHelper.codeInspection.instances.AnnotationInstance;
@@ -29,25 +28,25 @@ public class AnnotationActionNode extends BaseNode {
     Set<PersonalDataGroup> unusedDataGroups;
     Map<PersonalDataGroup, Boolean> dataGroupOccurrenceCount;
 
-    protected AnnotationActionNode(Project project, int typeId, DataPracticeGroup stage, AbstractTreeBuilder builder, boolean todo) {
-        super(project, typeId, builder);
+    protected AnnotationActionNode(Project project, int typeId, DataPracticeGroup stage, boolean todo) {
+        super(project, typeId);
         myStage = stage;
         this.todo = todo;
     }
 
-    protected AnnotationActionNode(Project project, int typeId, DataPracticeGroup stage, AbstractTreeBuilder builder,
+    protected AnnotationActionNode(Project project, int typeId, DataPracticeGroup stage,
                                    boolean todo, boolean hasMatch) {
-        super(project, typeId, builder);
+        super(project, typeId);
         myStage = stage;
         this.todo = todo;
         this.hasMatch = hasMatch;
     }
 
-    protected AnnotationActionNode(Project project, int typeId, DataPracticeGroup stage, AbstractTreeBuilder builder,
+    protected AnnotationActionNode(Project project, int typeId, DataPracticeGroup stage,
                                    boolean todo, Set<String> unusedDataCategories,
                                    Set<PersonalDataGroup> unusedDataGroups,
                                    Map<PersonalDataGroup, Boolean> dataGroupOccurrenceCount) {
-        super(project, typeId, builder);
+        super(project, typeId);
         myStage = stage;
         this.todo = todo;
         this.unusedDataCategories = unusedDataCategories;
@@ -69,7 +68,7 @@ public class AnnotationActionNode extends BaseNode {
             }
             for (SensitiveAPIInstance dataInstance : sensitiveAPIInstances) {
                 if (dataInstance.hasError && todo || !dataInstance.hasError && !todo) {
-                    childrenNodes.add(new AnnotationNode(myProject, dataInstance, myStage, myBuilder));
+                    childrenNodes.add(new AnnotationNode(myProject, dataInstance, myStage));
                 }
             }
         } else {
@@ -86,11 +85,11 @@ public class AnnotationActionNode extends BaseNode {
                                 dataGroups.add(dataGroup);
                             }
                         }
-                        childrenNodes.add(new SearchDataCategoryKeywordNode(myProject, category, myBuilder, dataGroups,
+                        childrenNodes.add(new SearchDataCategoryKeywordNode(myProject, category, dataGroups,
                                 occurrenceMap));
                     }
                 } else {
-                    childrenNodes.add(new SearchKeywordsNode(myProject, NetworkKeywordRegex, myBuilder,
+                    childrenNodes.add(new SearchKeywordsNode(myProject, NetworkKeywordRegex,
                             String.format("Search for possible data transmissions%s",
                                     hasMatch ? " (found keyword matches)" : ""),
                             ""));
@@ -104,7 +103,7 @@ public class AnnotationActionNode extends BaseNode {
                             .getManuallyAddedAnnotationsByType(CoconutAnnotationType.DataTransmission);
                 }
                 for (AnnotationInstance annotationInstance : annotationInstances) {
-                    childrenNodes.add(new AnnotationNode(myProject, annotationInstance, myStage, myBuilder));
+                    childrenNodes.add(new AnnotationNode(myProject, annotationInstance, myStage));
                 }
             }
         }
