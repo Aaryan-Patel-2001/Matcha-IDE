@@ -1,7 +1,6 @@
 package org.intellij.privacyHelper.panelUI.safetySectionTasks;
 
 import com.intellij.ide.projectView.PresentationData;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
@@ -25,8 +24,8 @@ public class LibraryNode extends BaseNode {
     SafetySectionDataElement libDefaultDataUsage;
     public ThirdPartyCustomDataInstance customDataInstance;
 
-    public LibraryNode(Project project, String libName, AbstractTreeBuilder builder) {
-        super(project, libName, builder);
+    public LibraryNode(Project project, String libName) {
+        super(project, libName);
         this.libName = libName;
         updateList();
     }
@@ -142,11 +141,11 @@ public class LibraryNode extends BaseNode {
         ArrayList<AbstractTreeNode> children = new ArrayList<>();
         if (customDataInstance == null || customDataInstance.verified) {
             children.add(new PlainTextNode(myProject,
-                    String.format("Default usage: %s", generateDataUsageString(libDefaultDataUsage)), myBuilder));
+                    String.format("Default usage: %s", generateDataUsageString(libDefaultDataUsage))));
             if (customDataInstance != null && customDataInstance.verified) {
                 children.add(new PlainTextNode(myProject,
                         String.format("Custom usage: %s",
-                                generateDataUsageString(customDataInstance.safetySectionDataElement)), myBuilder));
+                                generateDataUsageString(customDataInstance.safetySectionDataElement))));
             }
         }
         return children;

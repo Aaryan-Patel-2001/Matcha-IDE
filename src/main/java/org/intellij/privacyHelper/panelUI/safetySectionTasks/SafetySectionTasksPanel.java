@@ -13,6 +13,7 @@ import com.intellij.ui.TreeSpeedSearch;
 import com.intellij.ui.treeStructure.Tree;
 import com.intellij.util.EditSourceOnDoubleClickHandler;
 import com.intellij.util.ui.UIUtil;
+import com.intellij.util.ui.tree.TreeUtil;
 import org.intellij.privacyHelper.codeInspection.state.PrivacyPracticesHolder;
 import org.intellij.privacyHelper.panelUI.PrivacyCheckerCompositeRenderer;
 import org.jetbrains.annotations.NotNull;
@@ -62,7 +63,7 @@ public class SafetySectionTasksPanel extends SimpleToolWindowPanel implements Oc
             if (treePath == null) {
                 return;
             }
-            final Object object = ((DefaultMutableTreeNode)treePath.getLastPathComponent()).getUserObject();
+            final Object object = TreeUtil.getLastUserObject(treePath);
             if (object instanceof CollectedByAppNode || object instanceof CollectedByLibTypeNode) {
                 if (object instanceof CollectedByAppNode) {
                     CollectedByAppNode collectedByAppNode = (CollectedByAppNode) object;

@@ -1,7 +1,6 @@
 package org.intellij.privacyHelper.panelUI.safetySectionPreview;
 
 import com.intellij.ide.projectView.PresentationData;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
 import org.intellij.privacyHelper.codeInspection.utils.CoconutUIUtil;
@@ -17,8 +16,8 @@ public class DataTypeNode extends BaseNode {
     HashMap<String, ArrayList<Object>> dataUsagePointerMap;
 
     protected DataTypeNode(Project project, String dataType, Set<String> dataUsage,
-                           HashMap<String, ArrayList<Object>> dataUsagePointerMap, AbstractTreeBuilder builder) {
-        super(project, dataType, builder);
+                           HashMap<String, ArrayList<Object>> dataUsagePointerMap) {
+        super(project, dataType);
         this.dataType = dataType;
         this.dataUsage = dataUsage;
         this.dataUsagePointerMap = dataUsagePointerMap;
@@ -35,7 +34,7 @@ public class DataTypeNode extends BaseNode {
                     newDataUsage.add(usage);
                 }
             }
-            children.add(new PurposeNode(myProject, purpose, newDataUsage, dataUsagePointerMap, myBuilder));
+            children.add(new PurposeNode(myProject, purpose, newDataUsage, dataUsagePointerMap));
         }
         return children;
     }

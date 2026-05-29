@@ -27,6 +27,7 @@ import com.intellij.ui.TreeSpeedSearch;
 import com.intellij.ui.treeStructure.Tree;
 import com.intellij.util.EditSourceOnDoubleClickHandler;
 import com.intellij.util.ui.UIUtil;
+import com.intellij.util.ui.tree.TreeUtil;
 import org.intellij.privacyHelper.codeInspection.utils.CoconutUIUtil;
 import org.intellij.privacyHelper.codeInspection.utils.TooltipInfo;
 import org.intellij.privacyHelper.panelUI.PrivacyCheckerCompositeRenderer;
@@ -127,7 +128,7 @@ public class SafetySectionTaskGuidePanel extends SimpleToolWindowPanel implement
                           if (treePath == null) {
                               return;
                           }
-                          final Object object = ((DefaultMutableTreeNode)treePath.getLastPathComponent()).getUserObject();
+                          final Object object = TreeUtil.getLastUserObject(treePath);
                           if (object instanceof SearchKeywordsNode) {
                               final SearchKeywordsNode searchNode = (SearchKeywordsNode) object;
                               FindInProjectManager findManager = FindInProjectManager.getInstance(myProject);
@@ -166,7 +167,7 @@ public class SafetySectionTaskGuidePanel extends SimpleToolWindowPanel implement
                     if (treePath == null) {
                         return;
                     }
-                    final Object object = ((DefaultMutableTreeNode)treePath.getLastPathComponent()).getUserObject();
+                    final Object object = TreeUtil.getLastUserObject(treePath);
                     if (!(object instanceof PsiElementNode) && !(object instanceof LibraryNode) && !(object instanceof AnnotationNode)) {
                         return;
                     }

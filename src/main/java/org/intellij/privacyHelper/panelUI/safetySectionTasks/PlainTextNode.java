@@ -1,7 +1,6 @@
 package org.intellij.privacyHelper.panelUI.safetySectionTasks;
 
 import com.intellij.ide.projectView.PresentationData;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
 import org.intellij.privacyHelper.panelUI.BaseNode;
@@ -13,8 +12,8 @@ import java.util.Collection;
 public class PlainTextNode extends BaseNode {
     String text;
 
-    public PlainTextNode(Project project, String text, AbstractTreeBuilder builder) {
-        super(project, text, builder);
+    public PlainTextNode(Project project, String text) {
+        super(project, text);
         this.text = text;
     }
 

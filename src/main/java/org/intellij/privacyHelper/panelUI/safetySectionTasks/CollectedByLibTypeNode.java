@@ -2,7 +2,6 @@ package org.intellij.privacyHelper.panelUI.safetySectionTasks;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.todo.HighlightedRegionProvider;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
@@ -21,8 +20,8 @@ public class CollectedByLibTypeNode extends BaseNode implements HighlightedRegio
     private final ArrayList<HighlightedRegion> myHighlightedRegions = new ArrayList<>();
     HashMap<String, ArrayList<ThirdPartySafetySectionInfo>> libraryDataMap = new HashMap<>();
 
-    public CollectedByLibTypeNode(Project myProject, CollectionType collectedByLib, AbstractTreeBuilder myBuilder) {
-        super(myProject, collectedByLib, myBuilder);
+    public CollectedByLibTypeNode(Project myProject, CollectionType collectedByLib) {
+        super(myProject, collectedByLib);
     }
 
     @Override

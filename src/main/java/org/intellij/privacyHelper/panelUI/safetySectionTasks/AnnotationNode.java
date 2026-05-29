@@ -2,7 +2,6 @@ package org.intellij.privacyHelper.panelUI.safetySectionTasks;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.todo.HighlightedRegionProvider;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.project.Project;
@@ -35,9 +34,8 @@ public class AnnotationNode extends BaseNode implements HighlightedRegionProvide
     public final @Nullable SensitiveAPIInstance myAPICallInstance; // only when myAnnotationInstance == null
     private final @Nullable AnnotationInstance myAnnotationInstance; // only when myAPICallInstance == null
 
-    public AnnotationNode(Project project, SensitiveAPIInstance sensitiveAPIInstance, DataPracticeGroup stage,
-                             AbstractTreeBuilder builder) {
-        super(project, sensitiveAPIInstance, builder);
+    public AnnotationNode(Project project, SensitiveAPIInstance sensitiveAPIInstance, DataPracticeGroup stage) {
+        super(project, sensitiveAPIInstance);
         myStage = stage;
         myAPICallInstance = sensitiveAPIInstance;
         myAnnotationInstance = null;
@@ -45,8 +43,8 @@ public class AnnotationNode extends BaseNode implements HighlightedRegionProvide
     }
 
     public AnnotationNode(Project project, AnnotationInstance annotationInstance,
-                          DataPracticeGroup stage, AbstractTreeBuilder builder) {
-        super(project, annotationInstance, builder);
+                          DataPracticeGroup stage) {
+        super(project, annotationInstance);
         myStage = stage;
         myAPICallInstance = null;
         myAnnotationInstance = annotationInstance;
@@ -127,14 +125,14 @@ public class AnnotationNode extends BaseNode implements HighlightedRegionProvide
         if (myAPICallInstance == null) {
             children.add(new PsiElementNode(myProject,
                     Objects.requireNonNull(myAnnotationInstance).getAnnotationSmartPointer(),
-                    myBuilder, ANNOTATION_SUMMARY));
+                    ANNOTATION_SUMMARY));
         } else {
-            children.add(new PsiElementNode(myProject, myAPICallInstance.psiElementPointer, myBuilder,
+            children.add(new PsiElementNode(myProject, myAPICallInstance.psiElementPointer,
                     API_CALL_SUMMARY));
             if (myAPICallInstance.annotationMetaDataList != null && myAPICallInstance.annotationMetaDataList.length > 0) {
                 if (myAPICallInstance.annotationMetaDataList[0].psiAnnotationPointer != null) {
                     children.add(new PsiElementNode(myProject, myAPICallInstance.annotationMetaDataList[0].psiAnnotationPointer,
-                            myBuilder, ANNOTATION_SUMMARY));
+                            ANNOTATION_SUMMARY));
                 }
             }
         }

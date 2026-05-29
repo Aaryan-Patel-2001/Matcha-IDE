@@ -9,20 +9,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SafetySectionPreviewTreeStructure extends AbstractTreeStructureBase {
-    protected SafetySectionPreviewTreeBuilder myBuilder;
-    protected AbstractTreeNode myRootElement;
+    protected final AbstractTreeNode myRootElement;
 
     protected SafetySectionPreviewTreeStructure(Project project) {
         super(project);
-    }
-
-    final void setTreeBuilder(SafetySectionPreviewTreeBuilder builder) {
-        myBuilder = builder;
-        myRootElement = createRootElement();
-    }
-
-    public AbstractTreeNode createRootElement() {
-        return new RootNode(myProject, new Object(), myBuilder);
+        myRootElement = new RootNode(myProject, new Object());
     }
 
     @Override

@@ -8,6 +8,7 @@
          on how to target different products -->
     <depends>org.intellij.groovy</depends>
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->

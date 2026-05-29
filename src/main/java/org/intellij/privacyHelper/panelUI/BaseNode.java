@@ -16,7 +16,6 @@
 package org.intellij.privacyHelper.panelUI;
 
 
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
 
@@ -24,10 +23,8 @@ import com.intellij.openapi.project.Project;
  * Created by tianshi on 1/9/17.
  */
 public abstract class BaseNode<Value> extends AbstractTreeNode<Value> {
-  protected final AbstractTreeBuilder myBuilder;
 
-  protected BaseNode(Project project, Value value, AbstractTreeBuilder builder) {
+  protected BaseNode(Project project, Value value) {
     super(project, value);
-    myBuilder = builder;
   }
 }

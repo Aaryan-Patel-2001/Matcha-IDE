@@ -2,7 +2,6 @@ package org.intellij.privacyHelper.panelUI.safetySectionTasks.TaskGuide;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.todo.HighlightedRegionProvider;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.project.Project;
@@ -22,8 +21,8 @@ public class SearchKeywordsNode extends BaseNode implements HighlightedRegionPro
     private final ArrayList<HighlightedRegion> myHighlightedRegions;
 
     protected SearchKeywordsNode(Project project, String keywords,
-                                 AbstractTreeBuilder builder, String searchText, String definitionText) {
-        super(project, keywords, builder);
+                                 String searchText, String definitionText) {
+        super(project, keywords);
         this.keywords = keywords;
         this.searchText = searchText;
         this.definitionText = definitionText;

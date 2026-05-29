@@ -16,6 +16,7 @@ import com.intellij.ui.TreeSpeedSearch;
 import com.intellij.ui.treeStructure.Tree;
 import com.intellij.util.EditSourceOnDoubleClickHandler;
 import com.intellij.util.ui.UIUtil;
+import com.intellij.util.ui.tree.TreeUtil;
 import org.intellij.privacyHelper.codeInspection.state.PrivacyPracticesHolder;
 import org.intellij.privacyHelper.codeInspection.utils.CoconutUIUtil;
 import org.intellij.privacyHelper.panelUI.PrivacyCheckerCompositeRenderer;
@@ -63,7 +64,7 @@ public class SafetySectionPreviewPanel extends SimpleToolWindowPanel implements 
                     if (treePath == null) {
                         return;
                     }
-                    final Object object = ((DefaultMutableTreeNode)treePath.getLastPathComponent()).getUserObject();
+                    final Object object = TreeUtil.getLastUserObject(treePath);
                     if (!(object instanceof PsiElementNode) && !(object instanceof LibraryNode)) {
                         return;
                     }

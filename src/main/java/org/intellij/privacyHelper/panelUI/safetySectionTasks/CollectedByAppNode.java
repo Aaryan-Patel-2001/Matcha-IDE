@@ -2,7 +2,6 @@ package org.intellij.privacyHelper.panelUI.safetySectionTasks;
 
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.todo.HighlightedRegionProvider;
-import com.intellij.ide.util.treeView.AbstractTreeBuilder;
 import com.intellij.ide.util.treeView.AbstractTreeNode;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.HighlightedRegion;
@@ -18,8 +17,8 @@ public class CollectedByAppNode extends BaseNode implements HighlightedRegionPro
     private final ArrayList<HighlightedRegion> myHighlightedRegions = new ArrayList<>();
     public final DataPracticeGroup myStage;
 
-    CollectedByAppNode(Project project, DataPracticeGroup stage, AbstractTreeBuilder builder) {
-        super(project, stage, builder);
+    CollectedByAppNode(Project project, DataPracticeGroup stage) {
+        super(project, stage);
         myStage = stage;
     }
 
